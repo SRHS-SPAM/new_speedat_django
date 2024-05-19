@@ -77,8 +77,10 @@ WSGI_APPLICATION = 'speedat.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'speedat',  # Database의 이름
+        'USER': 'speedat',  # Database의 사용자 이름
+        'PASSWORD': 'speedat1234',  # Database의 비번
     }
 }
 
