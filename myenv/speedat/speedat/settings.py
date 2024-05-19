@@ -79,8 +79,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'speedat',  # Database의 이름
-        'USER': 'speedat',  # Database의 사용자 이름
-        'PASSWORD': 'speedat1234',  # Database의 비번
+        'USER': 'root',  # Database의 사용자 이름
+        'PASSWORD': 'Dkswlfl12#*',  # Database의 비번
     }
 }
 
