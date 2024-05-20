@@ -1,17 +1,19 @@
+from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
 class User(AbstractUser):
-    #사용자 이름 필드 최대 255
-    name = models.CharField(max_length=255)
-    #사용자 이메일 필드 최대 255, 고유함
-    email = models.CharField(max_length=255, unique=True)
-    #사용자 비번 필드 최대 255
-    password = models.CharField(max_length=255)
-    #유저이름 없음
-    username = None
-
-    #유저이름 필드 = 이메일 필드
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    groups = models.ManyToManyField(
+        Group,
+        related_name='custom_user_set',  # related_name 수정
+        blank=True,
+        help_text=('The groups this user belongs to. A user will get all permissions '
+                   'granted to each of their groups.'),
+        related_query_name='user',
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name='custom_user_set',  # related_name 수정
+        blank=True,
+        help_text='Specific permissions for this user.',
+        related_query_name='user',
+    )
