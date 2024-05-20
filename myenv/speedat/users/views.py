@@ -61,17 +61,22 @@ class UserView(APIView):
             #토큰이 만료되었을 경우 예외 처리
             raise AuthenticationFailed('Unauthenticated!')
         except jwt.InvalidTokenError:
+            #토큰이 유효하지 않을 경우 예외 처리
             raise AuthenticationFailed('Unauthenticated!')
 
+        #payload에게 사용자 id를 사용하여 사용자를 초기화
         user = User.objects.filter(id=payload['id']).first()
         if user is None:
+            #사용자가 없을 경우 예외처리
             raise AuthenticationFailed('User not found!')
 
+        #사용자의 데이터를 직렬화하여 응답
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
 class LogoutView(APIView):
     def post(self, request):
+        #응답 객체를 생성하고 JWT쿠키를 삭제
         response = Response()
         response.delete_cookie('jwt')
         response.data = {
